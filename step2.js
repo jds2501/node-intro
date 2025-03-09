@@ -36,5 +36,5 @@ if (process.argv.length === 3) {
     }
 
 } else {
-    console.error("Usage: node step1.js <path>");
+    console.error("Usage: node step2.js <path>");
 }
