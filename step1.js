@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 function cat(path) {
-    fs.readFile(path, function (err, data) {
+    fs.readFile(path, "utf-8", function (err, data) {
         if (err) {
             console.error(`Error reading ${path}:`, "\n", err.toString());
             process.exit();

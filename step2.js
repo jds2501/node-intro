@@ -12,11 +12,12 @@ async function webCat(url) {
         }
     } catch (err) {
         console.error(`Error fetching ${url}:`, "\n", "Error: Request failed with status code 404");
+        process.exit();
     }
 }
 
 function cat(path) {
-    fs.readFile(path, function (err, data) {
+    fs.readFile(path, "utf-8", function (err, data) {
         if (err) {
             console.error(`Error reading ${path}:`, "\n", err.toString());
             process.exit();
