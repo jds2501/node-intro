@@ -45,6 +45,9 @@ if (process.argv.length === 3) {
         cat(targetCat);
     }
 
+} else if (process.argv.length === 5 && process.argv[2] === "--out") {
+    console.log("Write a file!");
 } else {
     console.error("Usage: node step3.js <path>");
+    console.error("Usage: node step3.js --out <output file> <input file>");
 }
