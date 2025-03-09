@@ -16,11 +16,6 @@ async function getWebCatOutput(url) {
     }
 }
 
-async function webCat(url) {
-    const output = await getWebCatOutput(url);
-    console.log(output);
-}
-
 async function getCatOutput(path) {
     try {
         const data = await fs.readFile(path, "utf-8");
@@ -31,22 +26,33 @@ async function getCatOutput(path) {
     }
 }
 
-async function cat(path) {
-    const output = await getCatOutput(path);
+async function processReadTarget(targetCat) {
+    let result;
+
+    if (targetCat.startsWith("http://") || targetCat.startsWith("https://")) {
+        result = await getWebCatOutput(targetCat);
+    } else {
+        result = getCatOutput(targetCat);
+    }
+
+    return result;
+}
+
+async function printReadTarget(targetCat) {
+    const output = await processReadTarget(targetCat);
     console.log(output);
 }
 
 if (process.argv.length === 3) {
     const targetCat = process.argv[2];
-
-    if (targetCat.startsWith("http://") || targetCat.startsWith("https://")) {
-        webCat(targetCat);
-    } else {
-        cat(targetCat);
-    }
-
+    printReadTarget(targetCat);
 } else if (process.argv.length === 5 && process.argv[2] === "--out") {
-    console.log("Write a file!");
+
+    const writeFile = process.argv[3];
+    const readTarget = process.argv[4];
+
+    console.log("Write a file!", writeFile, readTarget);
+
 } else {
     console.error("Usage: node step3.js <path>");
     console.error("Usage: node step3.js --out <output file> <input file>");
