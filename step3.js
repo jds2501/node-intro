@@ -16,6 +16,11 @@ async function getWebCatOutput(url) {
     }
 }
 
+async function webCat(url) {
+    const output = await getWebCatOutput(url);
+    console.log(output);
+}
+
 async function getCatOutput(path) {
     try {
         const data = await fs.readFile(path, "utf-8");
@@ -26,17 +31,18 @@ async function getCatOutput(path) {
     }
 }
 
+async function cat(path) {
+    const output = await getCatOutput(path);
+    console.log(output);
+}
+
 if (process.argv.length === 3) {
     const targetCat = process.argv[2];
 
     if (targetCat.startsWith("http://") || targetCat.startsWith("https://")) {
-        getWebCatOutput(targetCat).then((value) => {
-            console.log(value);
-        });
+        webCat(targetCat);
     } else {
-        getCatOutput(targetCat).then((value) => {
-            console.log(value);
-        });
+        cat(targetCat);
     }
 
 } else {
